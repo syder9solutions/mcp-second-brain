@@ -1,0 +1,25 @@
+services:
+  mcp-second-brain:
+    build: .
+    image: mcp-second-brain:1.0.0
+    container_name: mcp-second-brain
+    restart: unless-stopped
+    # Loopback publish only by default; change the host side to your LAN IP
+    # or place behind an authenticating reverse proxy before exposing.
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: "8000"
+      MCP_LOG_LEVEL: info
+      # Set to 1 only if you intentionally expose the Web UI cross-origin.
+      MCP_ALLOW_ALL_ORIGINS: "0"
+    volumes:
+      # Persist notes authored via create_note/link_notes across container restarts.
+      - ./vault:/app/vault
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2)"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
