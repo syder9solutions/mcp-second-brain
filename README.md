@@ -19,7 +19,7 @@ A production-grade [Model Context Protocol](https://modelcontextprotocol.io) ser
 ## Quick start
 
 ```bash
-cd .
+cd mcp-second-brain
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 PYTHONPATH=. .venv/bin/pytest tests -q     # 33 passed
 .venv/bin/python scripts/run_eval.py       # 100% defense rate
@@ -153,7 +153,7 @@ The red-team set covers POSIX traversal, absolute paths, Windows separators, dou
 ## Reproduce everything
 
 ```bash
-cd .
+cd mcp-second-brain
 PYTHONPATH=. .venv/bin/pytest tests -v     # 33 passed
 .venv/bin/python scripts/run_eval.py       # 100% defense, 100% recall
 PYTHONPATH=. .venv/bin/python -m src.stdio  # stdio MCP loop (pipe JSON-RPC to stdin)
